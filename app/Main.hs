@@ -13,21 +13,11 @@ main =
 loop :: IO ()
 loop = do
   input <- read'
-  unless (input == ":quit")
-       $ exec input -- print' (eval' input)
-      >> loop
-
+  unless (input == ":quit") $ exec input >> loop
+  
 
 read' :: IO String
 read' = putStr "info > "
      >> hFlush stdout
      >> getLine
 
-
-eval' :: String -> String
-eval' input =
-  "input: " ++ input
-
-
-print' :: String -> IO ()
-print' = putStrLn
