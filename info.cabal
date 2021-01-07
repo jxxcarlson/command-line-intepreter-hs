@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d112b401f681a8f152776a9f18a632a5751ead3a8da29614c536c3dcfeade0f7
+-- hash: f489d275e7ed92b8b5a0a50a460287d47651954c10aa392558de483d29fbbf00
 
 name:           info
 version:        0.1.0.0
@@ -28,6 +28,8 @@ source-repository head
 library
   exposed-modules:
       Exec
+      Info
+      Parser
   other-modules:
       Paths_info
   hs-source-dirs:
