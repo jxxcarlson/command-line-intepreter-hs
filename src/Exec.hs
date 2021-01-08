@@ -1,12 +1,15 @@
-module Exec(exec) where
+module Exec(exec) where 
+
+import Data.List.Utils (replace)
  
 -- DISPATCHER
 
 exec :: String -> IO ()
 exec str = 
   case words str of
-     [] -> putStrLn "??"
+     [] -> putStr ""
      (cmd:args) -> 
        case cmd of
-         "help" -> putStrLn "No help file yet"
-         _ -> putStrLn  $ "I don't understand '" ++ str ++ "'"
+         "/help" -> putStrLn "No help file yet"
+         "/echo" -> putStrLn (drop 7 str)
+         _ -> putStrLn  $ "I don't understand\n" ++ str
