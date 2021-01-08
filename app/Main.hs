@@ -12,6 +12,7 @@ main =
 
 loop :: IO ()
 loop = do
+  putStr "info > " >> hFlush stdout  
   input <- innerLoop "" -- read'
   unless (input == "/quit ") $ exec input >> loop
 
@@ -19,7 +20,7 @@ loop = do
 
 innerLoop :: String -> IO String
 innerLoop str = do
-   line <- read'
+   line <- getLine
    if line == "" then return ""
    else if head line == '/' then 
        return (line ++ " " ++ str)
@@ -31,4 +32,6 @@ read' :: IO String
 read' = putStr "info > "
      >> hFlush stdout
      >> getLine
+
+
 
