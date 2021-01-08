@@ -1,1 +1,1 @@
-# info
+Skeleton command-line interpreter in Haskell
