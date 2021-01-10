@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 69c584d12760fcf28a962c8f7ffe3a3c7f13334ce83f6e0fec8905a51b51c364
+-- hash: d5d36bacab63730b9f229fd211a7eba1fa3cffe36aabb25f0a95fe3c4b94f287
 
 name:           info
 version:        0.1.0.0
@@ -37,6 +37,7 @@ library
   build-depends:
       MissingH
     , base >=4.7 && <5
+    , text
   default-language: Haskell2010
 
 executable info-exe
@@ -50,6 +51,7 @@ executable info-exe
       MissingH
     , base >=4.7 && <5
     , info
+    , text
   default-language: Haskell2010
 
 test-suite info-test
@@ -64,4 +66,5 @@ test-suite info-test
       MissingH
     , base >=4.7 && <5
     , info
+    , text
   default-language: Haskell2010
