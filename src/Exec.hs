@@ -2,7 +2,7 @@ module Exec(exec) where
 
 import Data.List.Utils (replace)
 import Data.Maybe(catMaybes)
-import Info
+import qualified Info
 import qualified Data.Text.IO as TIO
  
 -- DISPATCHER
@@ -19,7 +19,7 @@ exec str =
          "/enter" -> putStrLn $ show $ Info.get $ dropCommand "/enter" str
          "/echo" -> putStrLn $ prefix ++ dropCommand "/echo" str -- drop 7 str)
          "/stat" -> stat
-         "/display" -> Exec.display
+         "/display" -> display
          _ -> putStrLn  $ prefix ++  "I don't understand\n" ++ str
 
 
