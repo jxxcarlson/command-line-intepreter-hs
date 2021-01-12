@@ -8,7 +8,7 @@ import           Exec
 main :: IO()
 main =
   do
-    let pState = PState { count = 0, records = [], message = ""}
+    let pState = initialPState
     putStrLn "\nHello!  Type /quit to quit, /help for help\n"
     loop pState
 
