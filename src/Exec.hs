@@ -7,22 +7,22 @@ import qualified Data.Text.IO as TIO
  
 -- DISPATCHER
 
-data PState = PState { count :: Int, records :: [Info] }
+data PState = PState { count :: Int, records :: [Maybe Info], message :: String}
 
 prefix = "-----\n"
 
-exec :: PState -> String -> (PState, IO())
+exec :: PState -> String -> IO PState
 exec pState str = 
   case words str of
-     [] -> carryState pState $ putStr ""
+     [] -> return pState { message = ""}
      (cmd:args) -> 
        case cmd of
-         "/help" -> carryState pState $ putStrLn $ prefix ++ "No help file yet"
-         "/enter" -> carryState pState $ (putStrLn $ show $ Info.get $ dropCommand "/enter" str)
-         "/echo" -> carryState pState $ putStrLn $ prefix ++ dropCommand "/echo" str -- drop 7 str)
-         "/stat" -> carryState pState $ stat
-         "/display" -> carryState pState $ display
-         _ -> carryState pState $ putStrLn  $ prefix ++  "I don't understand\n" ++ str
+         "/help" -> return pState {message =  prefix ++ "No help file yet" }
+         "/enter" -> return pState {message = show $ Info.get $ dropCommand "/enter" str}
+         "/echo" -> return pState {message = prefix ++ dropCommand "/echo" str}
+         "/stat" -> stat pState
+         "/display" -> display pState
+         _ -> return pState {message = prefix ++  "I don't understand\n" ++ str }
 
 
 carryState :: PState -> IO () -> (PState, IO ())
@@ -32,16 +32,16 @@ dropCommand :: String -> String -> String
 dropCommand cmd str = drop ((length cmd)+ 2) str
 
 
-display :: IO ()
-display = do
+display :: PState -> IO PState
+display pState = do
     text <- TIO.readFile "data.txt"
     let records = Info.getMany Info.sep text
-    putStrLn $ Info.displayMany $ catMaybes records
+    return pState { records = records, message = Info.displayMany $ catMaybes records }
 
 
-stat :: IO ()
-stat = do
+stat :: PState -> IO PState
+stat pState = do
     text <- TIO.readFile "data.txt"
     let records = Info.getMany Info.sep text
-    putStrLn $ show $ (length records, length $ catMaybes records)
+    return pState { records = records, message = show (length records, length $ catMaybes records) }
 
