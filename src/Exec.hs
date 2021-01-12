@@ -2,12 +2,12 @@ module Exec where
 
 import Data.List.Utils (replace)
 import Data.Maybe(catMaybes)
-import qualified Info
+import Info 
 import qualified Data.Text.IO as TIO
  
 -- DISPATCHER
 
-data PState = PState { count :: Int }
+data PState = PState { count :: Int, records :: [Info] }
 
 prefix = "-----\n"
 

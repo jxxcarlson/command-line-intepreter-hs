@@ -8,7 +8,7 @@ import           Exec
 main :: IO()
 main =
   do
-    let pState = PState { count = 0}
+    let pState = PState { count = 0, records = []}
     -- putStrLn "\n\nHello!\n\n"
     loop pState
 
@@ -16,7 +16,8 @@ loop :: PState -> IO ()
 loop pState = do
   putStr (show (count pState) ++ ": info > " ) >> hFlush stdout  
   input <- innerLoop "" 
-  unless (input == "/quit ") $ (snd $ exec pState input) >> loop (pState { count = (count pState) + 1})
+  let result = exec pState input
+  unless (input == "/quit ") $ (snd result) >> loop ((fst result) { count = (count pState) + 1})
 
 
 innerLoop :: String -> IO String

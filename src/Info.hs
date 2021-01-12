@@ -1,4 +1,4 @@
-module Info(displayMany, get, getMany, sep) where  
+module Info(Info, displayMany, get, getMany, sep) where  
 
 import Parser (Parser, field, char, runParser)
 import qualified Data.Text as T
