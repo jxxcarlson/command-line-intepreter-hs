@@ -1,4 +1,4 @@
-module Exec(exec) where 
+module Exec where 
 
 import Data.List.Utils (replace)
 import Data.Maybe(catMaybes)
@@ -7,21 +7,26 @@ import qualified Data.Text.IO as TIO
  
 -- DISPATCHER
 
+data PState = PState { count :: Int }
+
 prefix = "-----\n"
 
-exec :: String -> IO ()
-exec str = 
+exec :: PState -> String -> (PState, IO())
+exec pState str = 
   case words str of
-     [] -> putStr ""
+     [] -> carryState pState $ putStr ""
      (cmd:args) -> 
        case cmd of
-         "/help" -> putStrLn $ prefix ++ "No help file yet"
-         "/enter" -> putStrLn $ show $ Info.get $ dropCommand "/enter" str
-         "/echo" -> putStrLn $ prefix ++ dropCommand "/echo" str -- drop 7 str)
-         "/stat" -> stat
-         "/display" -> display
-         _ -> putStrLn  $ prefix ++  "I don't understand\n" ++ str
+         "/help" -> carryState pState $ putStrLn $ prefix ++ "No help file yet"
+         "/enter" -> carryState pState $ (putStrLn $ show $ Info.get $ dropCommand "/enter" str)
+         "/echo" -> carryState pState $ putStrLn $ prefix ++ dropCommand "/echo" str -- drop 7 str)
+         "/stat" -> carryState pState $ stat
+         "/display" -> carryState pState $ display
+         _ -> carryState pState $ putStrLn  $ prefix ++  "I don't understand\n" ++ str
 
+
+carryState :: PState -> IO () -> (PState, IO ())
+carryState pState io = (pState, io)
 
 dropCommand :: String -> String -> String 
 dropCommand cmd str = drop ((length cmd)+ 2) str

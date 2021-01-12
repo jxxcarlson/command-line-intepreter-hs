@@ -10,4 +10,4 @@ lastName: XXX
 email: foo@bar
 /enter
 Just (Info {firstName = "Jim", lastName = "XXX", email = "foo@bar"})
-```
+``` 

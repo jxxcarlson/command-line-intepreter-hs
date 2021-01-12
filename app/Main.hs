@@ -1,21 +1,22 @@
 import           System.IO  
 import           Control.Monad (unless)
 import           System.IO
-import           Exec (exec)
+import           Exec
+
 
 
 main :: IO()
 main =
   do
+    let pState = PState { count = 0}
     -- putStrLn "\n\nHello!\n\n"
-    loop
+    loop pState
 
-loop :: IO ()
-loop = do
-  putStr "info > " >> hFlush stdout  
-  input <- innerLoop "" -- read'
-  unless (input == "/quit ") $ exec input >> loop
-
+loop :: PState -> IO ()
+loop pState = do
+  putStr (show (count pState) ++ ": info > " ) >> hFlush stdout  
+  input <- innerLoop "" 
+  unless (input == "/quit ") $ (snd $ exec pState input) >> loop (pState { count = (count pState) + 1})
 
 
 innerLoop :: String -> IO String
