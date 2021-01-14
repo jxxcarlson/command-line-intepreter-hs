@@ -20,9 +20,13 @@ extra-source-files:
 description:         Please see the README on GitHub at <https://github.com/githubuser/info#readme>
 
 dependencies:
-- base >= 4.7 && < 5
+- base >= 4.7 && < 5 #  >=4.8 && <4.15 # 
 - MissingH
 - text
+- sendgrid-v3 
+- lens
+- wreq
+
 
 library:
   source-dirs: src

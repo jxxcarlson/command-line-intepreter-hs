@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d5d36bacab63730b9f229fd211a7eba1fa3cffe36aabb25f0a95fe3c4b94f287
+-- hash: d5dc170838cafb6a50b79fa869496181c181bb90bc77162dc847ec293f651f93
 
 name:           info
 version:        0.1.0.0
@@ -37,7 +37,10 @@ library
   build-depends:
       MissingH
     , base >=4.7 && <5
+    , lens
+    , sendgrid-v3
     , text
+    , wreq
   default-language: Haskell2010
 
 executable info-exe
@@ -51,7 +54,10 @@ executable info-exe
       MissingH
     , base >=4.7 && <5
     , info
+    , lens
+    , sendgrid-v3
     , text
+    , wreq
   default-language: Haskell2010
 
 test-suite info-test
@@ -66,5 +72,8 @@ test-suite info-test
       MissingH
     , base >=4.7 && <5
     , info
+    , lens
+    , sendgrid-v3
     , text
+    , wreq
   default-language: Haskell2010
